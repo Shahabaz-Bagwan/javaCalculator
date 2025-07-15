@@ -42,43 +42,18 @@ public class Calculator {
      * @param num1 The dividend.
      * @param num2 The divisor.
      * @return The quotient of num1 divided by num2.
-     * @throws IllegalArgumentException if the divisor (num2) is zero.
+     * @throws ArithmeticException if the divisor (num2) is zero.
      */
     public double divide(double num1, double num2) {
-        if (num2 == 0) {
-            throw new IllegalArgumentException("Cannot divide by zero!");
+        /*
+        This checks if num2 is very close to 0.
+        Double values are not always precise,
+        so instead of checking num2 == 0,
+        we check if it's close enough to zero using a small limit.
+        */
+        if (Math.abs(num2) < 1e-9) {
+            throw new ArithmeticException("Cannot divide by zero");
         }
         return num1 / num2;
-    }
-
-    /**
-     * Main method to demonstrate the Calculator class.
-     * You can run this method to test the calculator operations.
-     *
-     * @param args Command line arguments (not used in this example).
-     */
-    public static void main(String[] args) {
-        // Create an instance of the Calculator
-        Calculator myCalculator = new Calculator();
-
-        // Perform some operations and print the results
-        double resultAdd = myCalculator.add(10.5, 5.2);
-        System.out.println("10.5 + 5.2 = " + resultAdd); // Expected: 15.7
-
-        double resultSubtract = myCalculator.subtract(20.0, 7.5);
-        System.out.println("20.0 - 7.5 = " + resultSubtract); // Expected: 12.5
-
-        double resultMultiply = myCalculator.multiply(4.0, 2.5);
-        System.out.println("4.0 * 2.5 = " + resultMultiply); // Expected: 10.0
-
-        double resultDivide = myCalculator.divide(100.0, 4.0);
-        System.out.println("100.0 / 4.0 = " + resultDivide); // Expected: 25.0
-
-        // Demonstrate division by zero error handling
-        try {
-            myCalculator.divide(5.0, 0.0);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage()); // Expected: Error: Cannot divide by zero!
-        }
     }
 }
